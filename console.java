@@ -3,12 +3,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class console {
-    private int score; 
+	private int score;
 	private boolean done = false;
 	private int nbreQuestion;
 	Scanner clavier = new Scanner(System.in);
-    
-    /**
+
+	/**
 	 * Constructeur de la classe ConsoleQuizz
 	 * 
 	 * @param nbreQuestion : Le nombre de questions à poser au joueur
@@ -18,11 +18,10 @@ public class console {
 	}
 
 	/**
-	 * Coeur du quizz, pose les questions, v�rifie les reponses et compte le score
+	 * pose les questions, vérifie les reponses et compte le score
 	 */
-    public void start() {
+	public void start() {
 		try {
-			long startTime = System.currentTimeMillis();
 			ArrayList<question> questions = generate(nbreQuestion);
 			for (int i = 0; i < nbreQuestion; i++) {
 				System.out.println(questions.get(i).getQuestion());
@@ -36,14 +35,13 @@ public class console {
 					System.out.println("La bonne reponse etait: " + questions.get(i).getReponse());
 				}
 			}
-			done = true; 
+			done = true;
 		} catch (IllegalArgumentException e) {
 			done = false;
 			System.out.println(e.getMessage());
 		}
 
 	}
-
 
 	/**
 	 * Affiche le score final
@@ -53,24 +51,26 @@ public class console {
 
 	}
 
-    /**
+	/**
 	 * Affiche le resultat au joueur, un message d'erreur sinon
 	 */
 	public void displayResultats() {
 		if (done) {
 			displayScore();
-            
+
 		} else {
 			System.out.println("Vous n'avez rien repondu.");
 		}
 	}
 
-    /**
-	 * Permet de creer un tableau de x questions-reponses, x etant choisit au lancement du jeu
+	/**
+	 * Permet de creer un tableau de x questions-reponses, x etant choisit au
+	 * lancement du jeu
+	 * 
 	 * @param nbreQuestions : nombre de question choisit au lancement du jeu
 	 * @return : un tableau de questions
 	 */
-	public ArrayList<question> generate( ) {
+	public ArrayList<question> generate() {
 		String[][] data = getData();
 		int index = 0;
 		ArrayList<question> questions = new ArrayList<question>();
@@ -80,7 +80,7 @@ public class console {
 			throw new IllegalArgumentException("On ne peut generer que: " + data.length + " questions maximun");
 		}
 		indexesAlreadyTaken.clear();
-        
+
 		for (int i = 0; i < nbreQuestion; i++) {
 			do {
 				Random random = new Random();
@@ -88,14 +88,15 @@ public class console {
 			} while (indexesAlreadyTaken.contains(index));
 			indexesAlreadyTaken.add(index);
 			String question = data[index][0];
-			String reponse = data[index][1]; 
+			String reponse = data[index][1];
 		}
 		return questions;
 	}
 
-
 	/**
-	 * Permet de creer un tableau de x questions-reponses, x etant choisit au lancement du jeu
+	 * Permet de creer un tableau de x questions-reponses, x etant choisit au
+	 * lancement du jeu
+	 * 
 	 * @param nbreQuestions : nombre de question choisit au lancement du jeu
 	 * @return : un tableau de questions
 	 */
@@ -109,7 +110,7 @@ public class console {
 			throw new IllegalArgumentException("On ne peut generer que: " + data.length + " questions maximun");
 		}
 		indexesAlreadyTaken.clear();
-		
+
 		for (int i = 0; i < nbreQuestion; i++) {
 			do {
 				Random random = new Random();
@@ -125,10 +126,11 @@ public class console {
 	}
 
 	/**
-	 * @return un tableau à deux dimensions contenant les couples pays-president 
+	 * @return un tableau à deux dimensions contenant les couples pays-president
 	 */
 	private static String[][] getData() {
-		String[][] data = { { "France", "Macron" }, { "Etats Unis", "Biden" }, {"Russie", "Poutine"},  {"Ukraine", "Zelensky"}};
+		String[][] data = { { "France", "Macron" }, { "Etats Unis", "Biden" }, { "Russie", "Poutine" },
+				{ "Ukraine", "Zelensky" } };
 		return data;
 	}
 
